@@ -26,6 +26,10 @@ void draw()
   // update some variables with mouseX and mouseY
   m = map(mouseX, 0, width, 0, n1_MAX);
   n1 = map(mouseY, 0, height, 0, m_MAX);
+  // I found out that when m is divisible by 2, the shape is symmetrical and there are no protruding/cut off lines.
+  // This line of code soft-locks the shape to m % 2 == 0; comment it out if you want linear motion.
+  // Also, this line may cause some flickering issues?
+  m = round(m) % 2 == 0 ? round(m) : m;
 }
 
 void supershape()
