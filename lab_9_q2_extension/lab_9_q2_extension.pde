@@ -5,6 +5,7 @@
 final float a_MAX = 10, b_MAX = 10, m_MAX = 50, n1_MAX = 50, n2_MAX = 20, n3_MAX = 20;
 float a, b, m, n1, n2, n3;
 float scale;
+
 void setup()
 {
   size(800, 830);  // make taller so that text can fit without ever overlapping with actual drawing
