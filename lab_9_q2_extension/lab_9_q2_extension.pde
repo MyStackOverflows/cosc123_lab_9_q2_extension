@@ -5,10 +5,11 @@
 final float a_MAX = 10, b_MAX = 10, m_MAX = 50, n1_MAX = 50, n2_MAX = 20, n3_MAX = 20;
 float a, b, m, n1, n2, n3;
 float scale;
+boolean softLock = false;
 
 void setup()
 {
-  size(800, 830);  // make taller so that text can fit without ever overlapping with actual drawing
+  size(800, 845);  // make taller so that text can fit without ever overlapping with actual drawing
   strokeWeight(2);
   colorMode(HSB, 360, 100, 100);
   randomizeValues();
@@ -20,16 +21,16 @@ void draw()
   textAlign(LEFT, TOP);
   text(String.format("a: %f, b: %f, m: %f, n1: %f, n2: %f, n3: %f, scale: %f", a, b, m, n1, n2, n3, scale), 0, 0);
   text("use SPACE to randomize; use a & d for n2; use w & s for n3; use j & l for a; use i & k for b; use mouseX for m and mouseY for n1", 0, 15);
-  translate(width / 2, height / 2 + 15);  // translate so that the sketch won't overlap with text
+  text("soft-lock: " + (softLock ? "ON" : "OFF") + "; press TAB to toggle", 0, 30);
+  translate(width / 2, height / 2 + 30);  // translate so that the sketch won't overlap with text
   supershape();//(a, b, m1, m2, n1, n2, n3);
   
   // update some variables with mouseX and mouseY
   m = map(mouseX, 0, width, 0, n1_MAX);
   n1 = map(mouseY, 0, height, 0, m_MAX);
   // I found out that when m is divisible by 2, the shape is symmetrical and there are no protruding/cut off lines.
-  // This line of code soft-locks the shape to m % 2 == 0; comment it out if you want linear motion.
-  // Also, this line may cause some flickering issues?
-  m = round(m) % 2 == 0 ? round(m) : m;
+  // This line of code soft-locks the shape to m % 2 == 0
+  if (softLock) m = round(m) % 2 == 0 ? round(m) : m;
 }
 
 void supershape()
@@ -62,6 +63,7 @@ void keyTyped()
 
 void keyPressed()
 {
+  if (keyCode == TAB) softLock = !softLock;
   if (key == 'd') n2 = n2 < n2_MAX ? n2 + 0.1 : n2_MAX;
   if (key == 'a') n2 = n2 > 0 ? n2 - 0.1 : 0;
   if (key == 'w') n3 = n3 < n3_MAX ? n3 + 0.1 : n3_MAX;
