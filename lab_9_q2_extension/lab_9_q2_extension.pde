@@ -2,7 +2,7 @@
 // http://paulbourke.net/geometry/supershape/
 // i found the whole thing worked better when m1 == m2, so i just made one value m
 
-final float m_MAX = 50, n1_MAX = 50, n2_MAX = 20, n3_MAX = 20;
+final float a_MAX = 10, b_MAX = 10, m_MAX = 50, n1_MAX = 50, n2_MAX = 20, n3_MAX = 20;
 float a, b, m, n1, n2, n3;
 float scale;
 void setup()
@@ -18,7 +18,7 @@ void draw()
   background(0);
   textAlign(LEFT, TOP);
   text(String.format("a: %f, b: %f, m: %f, n1: %f, n2: %f, n3: %f, scale: %f", a, b, m, n1, n2, n3, scale), 0, 0);
-  text("use SPACE to randomize; use a & d to change n2; use w & s to change n3; use mouseX to change m and mouseY to change n1", 0, 15);
+  text("use SPACE to randomize; use a & d for n2; use w & s for n3; use j & l for a; use i & k for b; use mouseX for m and mouseY for n1", 0, 15);
   translate(width / 2, height / 2 + 15);  // translate so that the sketch won't overlap with text
   supershape();//(a, b, m1, m2, n1, n2, n3);
   
@@ -61,6 +61,10 @@ void keyPressed()
   if (key == 'a') n2 = n2 > 0 ? n2 - 0.1 : 0;
   if (key == 'w') n3 = n3 < n3_MAX ? n3 + 0.1 : n3_MAX;
   if (key == 's') n3 = n3 > 0 ? n3 - 0.1 : 0;
+  if (key == 'l') a = a < a_MAX ? a + 0.1 : a_MAX;
+  if (key == 'j') a = a > 0.1 ? a - 0.1 : 0.1;  // a & b must always be a non-zero number; otherwise, the sketch won't show up (this is because of the superformula and the math behind it)
+  if (key == 'i') b = b < b_MAX ? b + 0.1 : b_MAX;
+  if (key == 'k') b = b > 0.1 ? b - 0.1 : 0.1;
 }
 
 // change all values to something random (values for random() were just trial and error until i found a combination that makes interesting shapes, as well as using some info from the website cited above)
