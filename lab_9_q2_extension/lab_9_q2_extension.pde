@@ -20,7 +20,7 @@ void draw()
   background(0);
   textAlign(LEFT, TOP);
   text(String.format("a: %f, b: %f, m: %f, n1: %f, n2: %f, n3: %f, scale: %f", a, b, m, n1, n2, n3, scale), 0, 0);
-  text("use SPACE to randomize; use a & d for n2; use w & s for n3; use j & l for a; use i & k for b; use mouseX for m and mouseY for n1", 0, 15);
+  text("use SPACE to randomize; use LEFT & RIGHT for n2; use UP & DOWN for n3; use a & d for a; use w & s for b; use mouseX for m and mouseY for n1", 0, 15);
   text("soft-lock: " + (softLock ? "ON" : "OFF") + "; press TAB to toggle", 0, 30);
   translate(width / 2, height / 2 + 30);  // translate so that the sketch won't overlap with text
   supershape();//(a, b, m1, m2, n1, n2, n3);
@@ -64,14 +64,14 @@ void keyTyped()
 void keyPressed()
 {
   if (keyCode == TAB) softLock = !softLock;
-  if (key == 'd') n2 = n2 < n2_MAX ? n2 + 0.1 : n2_MAX;
-  if (key == 'a') n2 = n2 > 0 ? n2 - 0.1 : 0;
-  if (key == 'w') n3 = n3 < n3_MAX ? n3 + 0.1 : n3_MAX;
-  if (key == 's') n3 = n3 > 0 ? n3 - 0.1 : 0;
-  if (key == 'l') a = a < a_MAX ? a + 0.1 : a_MAX;
-  if (key == 'j') a = a > 0.1 ? a - 0.1 : 0.1;  // a & b must always be a non-zero number; otherwise, the sketch won't show up (this is because of the superformula and the math behind it)
-  if (key == 'i') b = b < b_MAX ? b + 0.1 : b_MAX;
-  if (key == 'k') b = b > 0.1 ? b - 0.1 : 0.1;
+  if (keyCode == RIGHT) n2 = n2 < n2_MAX ? n2 + 0.1 : n2_MAX;
+  if (keyCode == LEFT) n2 = n2 > 0 ? n2 - 0.1 : 0;
+  if (keyCode == UP) n3 = n3 < n3_MAX ? n3 + 0.1 : n3_MAX;
+  if (keyCode == DOWN) n3 = n3 > 0 ? n3 - 0.1 : 0;
+  if (key == 'd') a = a < a_MAX ? a + 0.1 : a_MAX;
+  if (key == 'a') a = a > 0.1 ? a - 0.1 : 0.1;  // a & b must always be a non-zero number; otherwise, the sketch won't show up (this is because of the superformula and the math behind it)
+  if (key == 'w') b = b < b_MAX ? b + 0.1 : b_MAX;
+  if (key == 's') b = b > 0.1 ? b - 0.1 : 0.1;
 }
 
 // change all values to something random (values for random() were just trial and error until i found a combination that makes interesting shapes, as well as using some info from the website cited above)
